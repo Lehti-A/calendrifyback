@@ -1,5 +1,6 @@
-package eu.calendrify.calendrifyback.persistence;
+package eu.calendrify.calendrifyback.persistence.image;
 
+import eu.calendrify.calendrifyback.persistence.day.Day;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
@@ -11,8 +12,7 @@ import lombok.Setter;
 @Table(name = "image", schema = "calendrify")
 public class Image {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "image_id_gen")
-    @SequenceGenerator(name = "image_id_gen", sequenceName = "image_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

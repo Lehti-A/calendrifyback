@@ -1,5 +1,6 @@
-package eu.calendrify.calendrifyback.persistence;
+package eu.calendrify.calendrifyback.persistence.personalgoaltemplate;
 
+import eu.calendrify.calendrifyback.persistence.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,8 +13,7 @@ import lombok.Setter;
 @Table(name = "personal_goal_template", schema = "calendrify")
 public class PersonalGoalTemplate {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "personal_goal_template_id_gen")
-    @SequenceGenerator(name = "personal_goal_template_id_gen", sequenceName = "personal_goal_template_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

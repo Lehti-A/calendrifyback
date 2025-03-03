@@ -1,5 +1,6 @@
-package eu.calendrify.calendrifyback.persistence;
+package eu.calendrify.calendrifyback.persistence.day;
 
+import eu.calendrify.calendrifyback.persistence.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -14,8 +15,7 @@ import java.time.LocalDate;
 @Table(name = "day", schema = "calendrify")
 public class Day {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "day_id_gen")
-    @SequenceGenerator(name = "day_id_gen", sequenceName = "day_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

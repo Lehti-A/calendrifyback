@@ -1,11 +1,10 @@
-package eu.calendrify.calendrifyback.persistence;
+package eu.calendrify.calendrifyback.persistence.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 @Getter
 @Setter
@@ -13,7 +12,7 @@ import org.hibernate.annotations.ColumnDefault;
 @Table(name = "\"user\"", schema = "calendrify")
 public class User {
     @Id
-    @ColumnDefault("nextval('calendrify.user_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

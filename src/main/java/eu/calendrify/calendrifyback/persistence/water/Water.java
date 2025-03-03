@@ -1,20 +1,20 @@
-package eu.calendrify.calendrifyback.persistence;
+package eu.calendrify.calendrifyback.persistence.water;
 
+import eu.calendrify.calendrifyback.persistence.user.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
-@Table(name = "step", schema = "calendrify")
-public class Step {
+@Table(name = "water", schema = "calendrify")
+public class Water {
     @Id
-    @ColumnDefault("nextval('calendrify.step_id_seq')")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 

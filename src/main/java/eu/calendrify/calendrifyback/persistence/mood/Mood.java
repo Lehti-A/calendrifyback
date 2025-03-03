@@ -1,5 +1,6 @@
-package eu.calendrify.calendrifyback.persistence;
+package eu.calendrify.calendrifyback.persistence.mood;
 
+import eu.calendrify.calendrifyback.persistence.day.Day;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -12,8 +13,7 @@ import lombok.Setter;
 @Table(name = "mood", schema = "calendrify")
 public class Mood {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "mood_id_gen")
-    @SequenceGenerator(name = "mood_id_gen", sequenceName = "mood_id_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
