@@ -1,4 +1,4 @@
-package eu.calendrify.calendrifyback.service;
+package eu.calendrify.calendrifyback.service.login;
 
 import eu.calendrify.calendrifyback.controller.login.dto.LoginResponse;
 import eu.calendrify.calendrifyback.infrastructure.exception.ForbiddenException;

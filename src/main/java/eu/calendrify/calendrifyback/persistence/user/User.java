@@ -1,5 +1,6 @@
 package eu.calendrify.calendrifyback.persistence.user;
 
+import eu.calendrify.calendrifyback.persistence.role.Role;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -19,7 +20,7 @@ public class User {
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "role_id", nullable = false)
-    private User role;
+    private Role role;
 
     @Size(max = 255)
     @NotNull

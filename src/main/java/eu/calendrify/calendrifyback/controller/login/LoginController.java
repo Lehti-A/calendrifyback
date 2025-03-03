@@ -2,7 +2,7 @@ package eu.calendrify.calendrifyback.controller.login;
 
 import eu.calendrify.calendrifyback.controller.login.dto.LoginResponse;
 import eu.calendrify.calendrifyback.infrastructure.error.ApiError;
-import eu.calendrify.calendrifyback.service.LoginService;
+import eu.calendrify.calendrifyback.service.login.LoginService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
