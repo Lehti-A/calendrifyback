@@ -94,7 +94,7 @@ CREATE TABLE profile (
 );
 
 -- Table: steps
-CREATE TABLE steps (
+CREATE TABLE step (
                        id serial  NOT NULL,
                        user_id int  NOT NULL,
                        date date  NOT NULL,
@@ -105,11 +105,19 @@ CREATE TABLE steps (
 -- Table: user
 CREATE TABLE "user" (
                         id serial  NOT NULL,
+                        role_id int  NOT NULL,
                         email varchar(255)  NOT NULL,
                         password varchar(255)  NOT NULL,
                         status varchar(1)  NOT NULL,
                         CONSTRAINT user_ak_1 UNIQUE (email) NOT DEFERRABLE  INITIALLY IMMEDIATE,
                         CONSTRAINT user_pk PRIMARY KEY (id)
+);
+
+-- Table: user
+CREATE TABLE role (
+                        id serial  NOT NULL,
+                        name varchar(255)  NOT NULL,
+                        CONSTRAINT role_pk PRIMARY KEY (id)
 );
 
 -- Table: water
@@ -195,7 +203,7 @@ ALTER TABLE profile ADD CONSTRAINT profile_user
 ;
 
 -- Reference: steps_user (table: steps)
-ALTER TABLE steps ADD CONSTRAINT steps_user
+ALTER TABLE step ADD CONSTRAINT steps_user
     FOREIGN KEY (user_id)
         REFERENCES "user" (id)
         NOT DEFERRABLE
@@ -205,6 +213,13 @@ ALTER TABLE steps ADD CONSTRAINT steps_user
 -- Reference: water_user (table: water)
 ALTER TABLE water ADD CONSTRAINT water_user
     FOREIGN KEY (user_id)
+        REFERENCES "user" (id)
+        NOT DEFERRABLE
+            INITIALLY IMMEDIATE
+;
+-- Reference: role_user (table: water)
+ALTER TABLE "user" ADD CONSTRAINT role_user
+    FOREIGN KEY (role_id)
         REFERENCES "user" (id)
         NOT DEFERRABLE
             INITIALLY IMMEDIATE
