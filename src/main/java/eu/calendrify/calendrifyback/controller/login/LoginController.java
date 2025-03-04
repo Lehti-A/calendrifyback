@@ -19,7 +19,7 @@ public class LoginController {
 
     private final LoginService loginService;
 
-    @GetMapping("/")
+    @GetMapping("/login")
     @Operation(summary = "Sisse logimine. Tagastab userId ja roleName",
             description = """
                     Süsteemist otsitakse email ja password abil kasutajat, kelle konto on ka aktiivne.
