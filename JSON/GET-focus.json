@@ -1,0 +1,12 @@
+[
+  {
+    "focusId": 1,
+    "topic": "present timeline project",
+    "isSelected": false
+  },
+  {
+    "focusId": 2,
+    "topic": "do something",
+    "isSelected": false
+  }
+]
