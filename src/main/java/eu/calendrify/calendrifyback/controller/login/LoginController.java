@@ -22,13 +22,13 @@ public class LoginController {
     @GetMapping("/")
     @Operation(summary = "Sisse logimine. Tagastab userId ja roleName",
             description = """
-                    Süsteemist otsitakse username ja password abil kasutajat, kelle konto on ka aktiivne.
+                    Süsteemist otsitakse email ja password abil kasutajat, kelle konto on ka aktiivne.
                     Kui vastet ei leita vistakse viga errorCode'ga 111""")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "403", description = "Vale kasutajanimi või parool", content = @Content(schema = @Schema(implementation = ApiError.class)))})
-    public LoginResponse login(@RequestParam String username, @RequestParam String password) {
-        LoginResponse loginResponse = loginService.login(username, password);
+            @ApiResponse(responseCode = "403", description = "Vale kasutaja email või parool", content = @Content(schema = @Schema(implementation = ApiError.class)))})
+    public LoginResponse login(@RequestParam String email, @RequestParam String password) {
+        LoginResponse loginResponse = loginService.login(email, password);
         return loginResponse;
     }
 }
