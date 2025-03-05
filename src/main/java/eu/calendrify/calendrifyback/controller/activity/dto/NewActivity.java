@@ -1,5 +1,6 @@
-package eu.calendrify.calendrifyback.persistence.focus;
+package eu.calendrify.calendrifyback.controller.activity.dto;
 
+import eu.calendrify.calendrifyback.persistence.activity.Activity;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -9,26 +10,15 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * DTO for {@link Focus}
+ * DTO for {@link Activity}
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewFocus implements Serializable {
+public class NewActivity implements Serializable {
     @NotNull
-    private Integer userId;
-
+    private Integer dayId;
     @NotNull
     @Size(max = 255)
     private String topic;
-
-    @NotNull
-    private Integer monthNumber;
-
-    @NotNull
-    private Integer year;
-
-    @NotNull
-    @Size(max = 1)
-    private String type;
 }

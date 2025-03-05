@@ -4,7 +4,7 @@ import eu.calendrify.calendrifyback.controller.focus.dto.FocusInfo;
 import eu.calendrify.calendrifyback.persistence.focus.Focus;
 import eu.calendrify.calendrifyback.persistence.focus.FocusMapper;
 import eu.calendrify.calendrifyback.persistence.focus.FocusRepository;
-import eu.calendrify.calendrifyback.persistence.focus.NewFocus;
+import eu.calendrify.calendrifyback.controller.focus.dto.NewFocus;
 import eu.calendrify.calendrifyback.persistence.user.User;
 import eu.calendrify.calendrifyback.persistence.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -32,10 +32,18 @@ public class FocusService {
         focusRepository.save(focus);
     }
 
+    public void deleteFocus(Integer focusId) {
+        Focus focus = focusRepository.getReferenceById(focusId);
+        focusRepository.delete(focus);
+
+    }
+
     private Focus createFocus(NewFocus newFocus) {
         User user = userRepository.getReferenceById(newFocus.getUserId());
         Focus focus = focusMapper.toFocus(newFocus);
         focus.setUser(user);
         return focus;
     }
+
+
 }
