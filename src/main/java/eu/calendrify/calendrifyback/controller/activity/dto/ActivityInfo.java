@@ -17,8 +17,6 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class ActivityInfo implements Serializable {
     @NotNull
-    private Integer dayId;
-    @NotNull
     @Size(max = 255)
     private String topic;
     @NotNull

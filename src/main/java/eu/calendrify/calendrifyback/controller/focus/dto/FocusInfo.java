@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class FocusInfo {
 
-    private Integer focusId;
     private String topic;
     private Boolean isSelected;
 
