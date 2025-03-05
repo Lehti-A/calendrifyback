@@ -17,11 +17,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ActivityService {
 
-
     private final DayRepository dayRepository;
     private final ActivityRepository activityRepository;
     private final ActivityMapper activityMapper;
-
 
     public List<ActivityInfo> findActivityInfos(Integer dayId) {
         List<Activity> activities = activityRepository.findActivityBy(dayId);
