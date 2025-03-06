@@ -1,48 +1,30 @@
 package eu.calendrify.calendrifyback.service.mood;
 
-import eu.calendrify.calendrifyback.controller.mood.dto.MoodInfo;
-import eu.calendrify.calendrifyback.controller.mood.dto.NewMood;
-import eu.calendrify.calendrifyback.persistence.day.Day;
-import eu.calendrify.calendrifyback.persistence.day.DayRepository;
+import eu.calendrify.calendrifyback.infrastructure.exception.DataNotFoundException;
 import eu.calendrify.calendrifyback.persistence.mood.Mood;
-import eu.calendrify.calendrifyback.persistence.mood.MoodMapper;
 import eu.calendrify.calendrifyback.persistence.mood.MoodRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import static eu.calendrify.calendrifyback.infrastructure.Error.PRIMARY_KEY_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
 public class MoodService {
 
-    private final DayRepository dayRepository;
     private final MoodRepository moodRepository;
-    private final MoodMapper moodMapper;
 
 
-    public List<MoodInfo> findMoodInfos(Integer dayId) {
-        List<Mood> moods = moodRepository.findMoodBy(dayId);
-        List<MoodInfo> moodInfos = moodMapper.toMoodInfos(moods);
-        return moodInfos;
-    }
-
-    public void addNewMood(NewMood newMood) {
-        Mood mood = createNewMood(newMood);
+    public void updateMood(Integer moodId, String state) {
+        Mood mood = getSelectedMood(moodId);
+        mood.setState(state);
         moodRepository.save(mood);
     }
 
-    public void deleteMood(Integer moodId) {
-        Mood mood = moodRepository.getReferenceById(moodId);
-        moodRepository.delete(mood);
-    }
-
-    private Mood createNewMood(NewMood newMood) {
-        Day day = dayRepository.getReferenceById(newMood.getDayId());
-        Mood mood = moodMapper.toMood(newMood);
-        mood.setDay(day);
+    private Mood getSelectedMood(Integer moodId) {
+        Mood mood = moodRepository.findById(moodId)
+                .orElseThrow(() -> new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode()));
         return mood;
     }
-
 
 }

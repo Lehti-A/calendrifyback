@@ -1,7 +1,7 @@
-package eu.calendrify.calendrifyback.controller.mood.dto;
+package eu.calendrify.calendrifyback.controller.image.dto;
 
+import eu.calendrify.calendrifyback.persistence.image.Image;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,15 +9,14 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * DTO for {@link eu.calendrify.calendrifyback.persistence.mood.Mood}
+ * DTO for {@link Image}
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NewMood implements Serializable {
+public class ImageInfo implements Serializable {
     @NotNull
     private Integer dayId;
     @NotNull
-    @Size(max = 1)
-    private String state;
+    private byte[] data;
 }
