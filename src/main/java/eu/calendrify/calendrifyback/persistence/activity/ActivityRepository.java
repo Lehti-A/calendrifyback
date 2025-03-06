@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
     @Query("select a from Activity a where a.day.id = :dayId order by a.isDone, a.topic")
-    List<Activity> findActivityBy(Integer dayId);
+    List<Activity> findActivitiesBy(Integer dayId);
 }

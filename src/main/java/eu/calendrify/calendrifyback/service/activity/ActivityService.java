@@ -22,7 +22,7 @@ public class ActivityService {
     private final ActivityMapper activityMapper;
 
     public List<ActivityInfo> findActivityInfos(Integer dayId) {
-        List<Activity> activities = activityRepository.findActivityBy(dayId);
+        List<Activity> activities = activityRepository.findActivitiesBy(dayId);
         List<ActivityInfo> activityInfos = activityMapper.toActivityInfos(activities);
         return activityInfos;
     }

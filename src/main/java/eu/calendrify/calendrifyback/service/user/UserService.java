@@ -1,6 +1,8 @@
 package eu.calendrify.calendrifyback.service.user;
 
 import eu.calendrify.calendrifyback.controller.user.dto.NewUser;
+import eu.calendrify.calendrifyback.controller.user.dto.UpdateUser;
+import eu.calendrify.calendrifyback.infrastructure.exception.DataNotFoundException;
 import eu.calendrify.calendrifyback.persistence.profile.Profile;
 import eu.calendrify.calendrifyback.persistence.profile.ProfileMapper;
 import eu.calendrify.calendrifyback.persistence.profile.ProfileRepository;
@@ -9,9 +11,12 @@ import eu.calendrify.calendrifyback.persistence.role.RoleRepository;
 import eu.calendrify.calendrifyback.persistence.user.User;
 import eu.calendrify.calendrifyback.persistence.user.UserMapper;
 import eu.calendrify.calendrifyback.persistence.user.UserRepository;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import static eu.calendrify.calendrifyback.infrastructure.Error.PRIMARY_KEY_NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -54,5 +59,23 @@ public class UserService {
         return profile;
     }
 
+
+    public void updateUserProfile(UpdateUser updateUser, Integer userId) {
+        User user = updateAndSaveUser(updateUser, userId);
+        updateAndSaveProfile(updateUser, user);
+    }
+// todo: teha updateUserProfile korda ja siis hiljem teha ka delete UserProfile
+
+//    private User updateAndSaveUser(UpdateUser updateUser, Integer userId) {
+//        User user = userRepository.findUserById(userId).orElseThrow(() -> new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode()));
+//
+//        user.setEmail(updateUser.getEmail());
+//        userRepository.save(user);
+//        return user;
+//    }
+//    private void updateAndSaveProfile(UpdateUser updateUser, User user) {
+//        Profile profile = profileRepository.findByUserId(user.getId());
+//
+//    }
 
 }

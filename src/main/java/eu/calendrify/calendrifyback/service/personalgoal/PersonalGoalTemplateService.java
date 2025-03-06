@@ -1,0 +1,51 @@
+package eu.calendrify.calendrifyback.service.personalgoal;
+
+import eu.calendrify.calendrifyback.controller.personalgoal.dto.NewPersonalGoalTemplate;
+import eu.calendrify.calendrifyback.controller.personalgoal.dto.PersonalGoalTemplateInfo;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplate;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplateMapper;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplateRepository;
+import eu.calendrify.calendrifyback.persistence.user.User;
+import eu.calendrify.calendrifyback.persistence.user.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+@RequiredArgsConstructor
+public class PersonalGoalTemplateService {
+
+    private final UserRepository userRepository;
+    private final PersonalGoalTemplateRepository personalGoalTemplateRepository;
+    private final PersonalGoalTemplateMapper personalGoalTemplateMapper;
+
+    public void addNewPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate) {
+        PersonalGoalTemplate personalGoalTemplate = createNewPersonalGoalTemplate(newPersonalGoalTemplate);
+        personalGoalTemplateRepository.save(personalGoalTemplate);
+
+    }
+
+    public List<PersonalGoalTemplateInfo> findPersonalGoalTemplateInfos(Integer userId) {
+        List<PersonalGoalTemplate> personalGoalTemplates = personalGoalTemplateRepository.findPersonalGoalTemplatesBy(userId);
+        List<PersonalGoalTemplateInfo> personalGoalTemplateInfos = personalGoalTemplateMapper.toPersonalGoalTemplateInfos(personalGoalTemplates);
+        return personalGoalTemplateInfos;
+    }
+
+
+    public void deletePersonalGoalTemplate(Integer personalGoalTemplateId) {
+        PersonalGoalTemplate personalGoalTemplate = personalGoalTemplateRepository.getReferenceById(personalGoalTemplateId);
+        personalGoalTemplateRepository.delete(personalGoalTemplate);
+
+    }
+
+    private PersonalGoalTemplate createNewPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate) {
+        User user = userRepository.findUserById(newPersonalGoalTemplate.getUserId());
+        PersonalGoalTemplate personalGoalTemplate = personalGoalTemplateMapper.toPersonalGoalTemplate(newPersonalGoalTemplate);
+        personalGoalTemplate.setUser(user);
+        return personalGoalTemplate;
+
+    }
+
+
+}
