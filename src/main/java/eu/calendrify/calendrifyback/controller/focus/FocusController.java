@@ -20,7 +20,7 @@ public class FocusController {
         focusService.addNewFocus(newFocus);
     }
 
-    @GetMapping("/focus")
+    @GetMapping("/focuses")
     @Operation(summary = "Tagastab Focus listi andmed")
     public List<FocusInfo> findFocusInfos(@RequestParam Integer userId, @RequestParam Integer monthNumber, @RequestParam Integer year, @RequestParam String type) {
         List<FocusInfo> focusInfos = focusService.findFocusInfos(userId, monthNumber, year, type);

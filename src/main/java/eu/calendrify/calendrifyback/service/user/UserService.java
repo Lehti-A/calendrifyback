@@ -1,6 +1,7 @@
 package eu.calendrify.calendrifyback.service.user;
 
 import eu.calendrify.calendrifyback.controller.user.dto.NewUser;
+import eu.calendrify.calendrifyback.controller.user.dto.NewUserPassword;
 import eu.calendrify.calendrifyback.controller.user.dto.UpdateUser;
 import eu.calendrify.calendrifyback.infrastructure.exception.DataNotFoundException;
 import eu.calendrify.calendrifyback.persistence.profile.Profile;
@@ -16,7 +17,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import static eu.calendrify.calendrifyback.infrastructure.Error.FOREIGN_KEY_NOT_FOUND;
 import static eu.calendrify.calendrifyback.infrastructure.Error.PRIMARY_KEY_NOT_FOUND;
+import static eu.calendrify.calendrifyback.status.Status.DELETED;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +36,11 @@ public class UserService {
     public void addNewUser(NewUser newUser) {
         User user = createAndSaveUser(newUser);
         createAndSaveProfile(newUser, user);
+    }
+
+    public void updateUserProfile(UpdateUser updateUser, Integer userId) {
+        updateAndSaveUser(updateUser, userId);
+        updateAndSaveProfile(updateUser, userId);
     }
 
     private User createAndSaveUser(NewUser newUser) {
@@ -59,23 +67,28 @@ public class UserService {
         return profile;
     }
 
-
-    public void updateUserProfile(UpdateUser updateUser, Integer userId) {
-        User user = updateAndSaveUser(updateUser, userId);
-        updateAndSaveProfile(updateUser, user);
+    private void updateAndSaveUser (UpdateUser updateUser, Integer userId) {
+        User user = userRepository.findUserById(userId);
+        user.setEmail(updateUser.getEmail());
+        userRepository.save(user);
     }
-// todo: teha updateUserProfile korda ja siis hiljem teha ka delete UserProfile
 
-//    private User updateAndSaveUser(UpdateUser updateUser, Integer userId) {
-//        User user = userRepository.findUserById(userId).orElseThrow(() -> new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode()));
-//
-//        user.setEmail(updateUser.getEmail());
-//        userRepository.save(user);
-//        return user;
-//    }
-//    private void updateAndSaveProfile(UpdateUser updateUser, User user) {
-//        Profile profile = profileRepository.findByUserId(user.getId());
-//
-//    }
+    private void updateAndSaveProfile (UpdateUser updateUser, Integer userId) {
+        Profile profile = profileRepository.findProfileBy(userId).orElseThrow(() -> new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode()));
+        profile.setAddress(updateUser.getAddress());
+        profile.setPhone(updateUser.getPhone());
+        profileRepository.save(profile);
+    }
 
+    public void updateUserPassword(@Valid NewUserPassword newUserPassword) {
+        User user = userRepository.findUserById(newUserPassword.getId());
+        user.setPassword(newUserPassword.getPassword());
+        userRepository.save(user);
+    }
+
+    public void removeUser(Integer userId) {
+        User user = userRepository.findUserById(userId);
+        user.setStatus(DELETED.getCode());
+        userRepository.save(user);
+    }
 }
