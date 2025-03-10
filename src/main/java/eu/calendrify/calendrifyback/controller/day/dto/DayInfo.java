@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 /**
  * DTO for {@link Day}
@@ -25,4 +26,9 @@ public class DayInfo implements Serializable {
     @NotNull
     @Size(max = 1000)
     private String thoughts;
+    private LocalDate date;
+    private String monthName;
+    private Integer dayNumber;
+    private String weekDay;
+
 }

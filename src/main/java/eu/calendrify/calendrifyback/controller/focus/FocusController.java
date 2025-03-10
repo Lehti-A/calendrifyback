@@ -27,6 +27,7 @@ public class FocusController {
         return focusInfos;
     }
 
+    
     @DeleteMapping("/focus")
     @Operation(summary = "Kustutab Focus-e")
     public void deleteFocus(@RequestParam Integer focusId) {
