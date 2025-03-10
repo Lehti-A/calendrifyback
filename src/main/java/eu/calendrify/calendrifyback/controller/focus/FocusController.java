@@ -23,18 +23,18 @@ public class FocusController {
     @GetMapping("/focuses")
     @Operation(summary = "Tagastab Focus listi andmed")
     public List<FocusInfo> findFocusInfos(@RequestParam Integer userId, @RequestParam Integer monthNumber, @RequestParam Integer year, @RequestParam String type) {
-        List<FocusInfo> focusInfos = focusService.findFocusInfos(userId, monthNumber, year, type);
-        return focusInfos;
+        return focusService.findFocusInfos(userId, monthNumber, year, type);
     }
 
-    
+    @PatchMapping("/focus")
+    @Operation(summary = "Märgib Focuse tehtuks/mitte tehtuks")
+    public void updateFocusStatus(@RequestParam Integer focusId, @RequestParam Boolean isSelected) {
+        focusService.updateFocusStatus(focusId, isSelected);
+    }
+
     @DeleteMapping("/focus")
     @Operation(summary = "Kustutab Focus-e")
     public void deleteFocus(@RequestParam Integer focusId) {
         focusService.deleteFocus(focusId);
     }
-
-
 }
-
-

@@ -10,8 +10,6 @@ import eu.calendrify.calendrifyback.persistence.image.ImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class ImageService {
@@ -21,19 +19,21 @@ public class ImageService {
     private final ImageMapper imageMapper;
 
     public void addNewImage(NewImage newImage) {
-        Image image = createNewImage(newImage);
-        imageRepository.save(image);
+        createAndSaveImage(newImage);
     }
 
-    public List<ImageInfo> findImageInfos(Integer dayId) {
-        List<Image> images = imageRepository.findImageBy(dayId);
-        List<ImageInfo> imageInfos = imageMapper.toImageInfos(images);
-        return imageInfos;
+    public ImageInfo findImageInfo(Integer dayId) {
+        Image image = getImageBy(dayId);
+        return imageMapper.toImageInfo(image);
     }
 
     public void deleteImage(Integer imageId) {
-        Image image = imageRepository.getReferenceById(imageId);
-        imageRepository.delete(image);
+        getAndDeleteImage(imageId);
+    }
+
+    private void createAndSaveImage(NewImage newImage) {
+        Image image = createNewImage(newImage);
+        imageRepository.save(image);
     }
 
     private Image createNewImage(NewImage newImage) {
@@ -43,4 +43,12 @@ public class ImageService {
         return image;
     }
 
+    private Image getImageBy(Integer imageId) {
+        return imageRepository.getReferenceById(imageId);
+    }
+
+    private void getAndDeleteImage(Integer imageId) {
+        Image image = getImageBy(imageId);
+        imageRepository.delete(image);
+    }
 }

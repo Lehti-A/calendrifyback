@@ -12,7 +12,6 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface FocusMapper {
 
-
     @Mapping(source = "topic", target = "topic")
     @Mapping(source = "isSelected", target = "isSelected")
     FocusInfo toFocusInfo(Focus focus);

@@ -1,6 +1,5 @@
 package eu.calendrify.calendrifyback.infrastructure;
 
-
 import eu.calendrify.calendrifyback.infrastructure.error.ApiError;
 import eu.calendrify.calendrifyback.infrastructure.exception.DataNotFoundException;
 import eu.calendrify.calendrifyback.infrastructure.exception.ForbiddenException;
@@ -47,6 +46,4 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
     }
-
-
 }

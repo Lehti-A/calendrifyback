@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 /**
  * DTO for {@link Day}
@@ -16,15 +15,9 @@ import java.time.LocalDate;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateDay implements Serializable {
+public class UpdateFocusDay implements Serializable {
+    @NotNull
     private Integer id;
-    @NotNull
-    @Size(max = 1)
-    private String type;
-    @NotNull
     @Size(max = 255)
     private String focus;
-    @NotNull
-    @Size(max = 1000)
-    private String thoughts;
 }

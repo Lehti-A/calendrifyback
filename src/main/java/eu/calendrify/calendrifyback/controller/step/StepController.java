@@ -18,5 +18,4 @@ public class StepController {
     public void updateStep(@RequestParam Integer stepId, @RequestParam Integer count) {
         stepService.updateStep(stepId, count);
     }
-
 }

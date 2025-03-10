@@ -18,6 +18,4 @@ public class WaterController {
     public void updateWater(@RequestParam Integer waterId, @RequestParam Integer count) {
         waterService.updateWater(waterId, count);
     }
-
-
 }

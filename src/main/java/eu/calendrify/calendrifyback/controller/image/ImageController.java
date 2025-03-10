@@ -7,15 +7,11 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 public class ImageController {
 
     private final ImageService imageService;
-
-    //todo: vaadata koos üle, kas piltide lisamine töötab
 
     @PostMapping("/image")
     @Operation(summary = "Lisab uue pildi andmebaasi")
@@ -25,9 +21,8 @@ public class ImageController {
 
     @GetMapping("/image")
     @Operation(summary = "Tagastab pildi andmed")
-    public List<ImageInfo> findImageInfos(@RequestParam Integer dayId) {
-        List<ImageInfo> imageInfos = imageService.findImageInfos(dayId);
-        return imageInfos;
+    public ImageInfo findImageInfo(@RequestParam Integer dayId) {
+        return imageService.findImageInfo(dayId);
     }
 
     @DeleteMapping("/image")
@@ -35,5 +30,4 @@ public class ImageController {
     public void deleteImage(@RequestParam Integer imageId) {
         imageService.deleteImage(imageId);
     }
-
 }

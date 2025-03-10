@@ -1,8 +1,9 @@
 package eu.calendrify.calendrifyback.controller.user;
 
 import eu.calendrify.calendrifyback.controller.user.dto.NewUser;
-import eu.calendrify.calendrifyback.controller.user.dto.NewUserPassword;
 import eu.calendrify.calendrifyback.controller.user.dto.UpdateUser;
+import eu.calendrify.calendrifyback.controller.user.dto.UpdateUserPassword;
+import eu.calendrify.calendrifyback.controller.user.dto.UserInfo;
 import eu.calendrify.calendrifyback.infrastructure.error.ApiError;
 import eu.calendrify.calendrifyback.service.user.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,20 +27,25 @@ public class UserController {
         userService.addNewUser(newUser);
     }
 
-    //todo: uurida, et millal put ja millal patch kasutada
-    @PatchMapping("/settings/user")
+    @GetMapping("/settings-user")
+    @Operation(summary = "Toob ära kasutaja info")
+    public UserInfo findUserInfos(@RequestParam Integer userId) {
+        return userService.findUserInfos(userId);
+    }
+
+    @PatchMapping("/settings-user")
     @Operation(summary = "Uuendab kasutaja andmeid")
-    public void updateUserProfile (@RequestBody @Valid UpdateUser updateUser, @RequestParam Integer userId) {
+    public void updateUserProfile(@RequestBody @Valid UpdateUser updateUser, @RequestParam Integer userId) {
         userService.updateUserProfile(updateUser, userId);
     }
 
-    @PatchMapping("/password")
+    @PatchMapping("/settings-password")
     @Operation(summary = "Uuendab kasutaja parooli")
-    public void updateUserPassword(@RequestBody @Valid NewUserPassword newUserPassword) {
-        userService.updateUserPassword(newUserPassword);
+    public void updateUserPassword(@RequestBody @Valid UpdateUserPassword updateUserPassword) {
+        userService.updateUserPassword(updateUserPassword);
     }
 
-    @DeleteMapping("/settings/user")
+    @DeleteMapping("/settings-user")
     @Operation(summary = "Eemaldab useri userId abil",
             description = "Tabelitest ühtegi kirjet ei eemaldata, 'user' tabelis muudetakse status väärtus D-ks ")
     @ApiResponses(value = {
@@ -48,7 +54,4 @@ public class UserController {
     public void removeUser(@RequestParam Integer userId) {
         userService.removeUser(userId);
     }
-
-
-
 }

@@ -13,5 +13,4 @@ public interface FocusRepository extends JpaRepository<Focus, Integer> {
             order by f.isSelected, f.topic""")
     List<Focus> findFocusBy(Integer userId, Integer monthNumber, Integer year, String type);
 
-
 }

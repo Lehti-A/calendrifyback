@@ -26,9 +26,12 @@ public class DayInfo implements Serializable {
     @NotNull
     @Size(max = 1000)
     private String thoughts;
+    @NotNull
     private LocalDate date;
+    @NotNull
     private String monthName;
+    @NotNull
     private Integer dayNumber;
+    @NotNull
     private String weekDay;
-
 }

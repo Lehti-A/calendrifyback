@@ -25,8 +25,7 @@ public class MeetingController {
     @GetMapping("/meeting")
     @Operation(summary = "Tagastab Meeting listi andmed")
     public List<MeetingInfo> findMeetingInfos(@RequestParam Integer dayId) {
-        List<MeetingInfo> meetingInfos = meetingService.findMeetingInfos(dayId);
-        return meetingInfos;
+        return meetingService.findMeetingInfos(dayId);
     }
 
     @DeleteMapping("/meeting")
@@ -34,6 +33,4 @@ public class MeetingController {
     public void deleteMeeting(@RequestParam Integer meetingId) {
         meetingService.deleteMeeting(meetingId);
     }
-
-
 }

@@ -7,4 +7,3 @@ public class ApiError {
     private String message;
     private Integer errorCode;
 }
-

@@ -22,9 +22,7 @@ public class MoodService {
     }
 
     private Mood getSelectedMood(Integer moodId) {
-        Mood mood = moodRepository.findById(moodId)
+        return moodRepository.findById(moodId)
                 .orElseThrow(() -> new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode()));
-        return mood;
     }
-
 }

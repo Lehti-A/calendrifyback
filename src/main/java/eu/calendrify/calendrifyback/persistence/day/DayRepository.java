@@ -12,5 +12,3 @@ public interface DayRepository extends JpaRepository<Day, Integer> {
     @Query("select d from Day d where d.user.id = :userId and d.type = :type and d.date = :date")
     Integer findDayBy(Integer userId, String type, LocalDate date);
 }
-
-

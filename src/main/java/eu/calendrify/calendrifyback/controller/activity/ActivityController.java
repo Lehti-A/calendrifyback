@@ -23,8 +23,13 @@ public class ActivityController {
     @GetMapping("/activity")
     @Operation(summary = "Tagastab Activity listi andmed")
     public List<ActivityInfo> findActivityInfos(@RequestParam Integer dayId) {
-        List<ActivityInfo> activityInfos = activityService.findActivityInfos(dayId);
-        return activityInfos;
+        return activityService.findActivityInfos(dayId);
+    }
+
+    @PatchMapping("/activity")
+    @Operation(summary = "Märgib Activity tehtuks/mitte tehtuks")
+    public void updateActivityStatus(@RequestParam Integer activityId, @RequestParam Boolean isDone) {
+        activityService.updateActivityStatus(activityId, isDone);
     }
 
     @DeleteMapping("/activity")
@@ -32,6 +37,4 @@ public class ActivityController {
     public void deleteActivity(@RequestParam Integer activityId) {
         activityService.deleteActivity(activityId);
     }
-
-
 }

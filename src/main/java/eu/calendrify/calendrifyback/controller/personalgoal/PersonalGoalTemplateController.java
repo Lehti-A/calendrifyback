@@ -17,21 +17,20 @@ public class PersonalGoalTemplateController {
 
 //todo    Küsida, kas peab olema veel path juures, kuna user profiili muutmisel on sama path.
 
-    @PostMapping("/settings")
+    @PostMapping("/settings-personal-goal")
     @Operation(summary = "Lisab uue PersonalGoalTemplate-i välja")
     public void addNewPersonalGoalTemplate(@RequestBody NewPersonalGoalTemplate newPersonalGoalTemplate) {
         personalGoalService.addNewPersonalGoalTemplate(newPersonalGoalTemplate);
     }
 
-
-    @GetMapping("/settings")
+    @GetMapping("/settings-personal-goal")
     @Operation(summary = "Tagastab PersonalGoalTemplate listi andmed")
     public List<PersonalGoalTemplateInfo> findPersonalGoalTemplateInfos(Integer userId) {
         List<PersonalGoalTemplateInfo> personalGoalTemplateInfos = personalGoalService.findPersonalGoalTemplateInfos(userId);
         return personalGoalTemplateInfos;
     }
 
-    @DeleteMapping("/settings")
+    @DeleteMapping("/settings-personal-goal")
     @Operation(summary = "Kustutab PersonalGoalTemplate-i välja")
     public void deletePersonalGoalTemplate(Integer personalGoalTemplateId) {
         personalGoalService.deletePersonalGoalTemplate(personalGoalTemplateId);

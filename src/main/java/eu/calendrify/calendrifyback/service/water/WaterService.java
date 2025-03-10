@@ -21,8 +21,7 @@ public class WaterService {
     }
 
     private Water getSelectedWater(Integer waterId) {
-        Water water = waterRepository.findById(waterId)
+        return waterRepository.findById(waterId)
                 .orElseThrow(() -> new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode()));
-        return water;
     }
 }

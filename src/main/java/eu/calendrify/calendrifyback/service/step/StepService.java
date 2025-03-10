@@ -21,9 +21,8 @@ public class StepService {
     }
 
     private Step getSelectedStep(Integer stepId) {
-        Step step = stepRepository.findById(stepId)
+        return stepRepository.findById(stepId)
                 .orElseThrow(() -> new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode()));
-        return step;
     }
 
 }

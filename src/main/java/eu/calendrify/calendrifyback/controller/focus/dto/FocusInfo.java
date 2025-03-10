@@ -12,5 +12,4 @@ public class FocusInfo {
 
     private String topic;
     private Boolean isSelected;
-
 }

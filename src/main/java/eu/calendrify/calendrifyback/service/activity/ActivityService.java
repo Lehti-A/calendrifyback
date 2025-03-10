@@ -21,28 +21,61 @@ public class ActivityService {
     private final ActivityRepository activityRepository;
     private final ActivityMapper activityMapper;
 
-    public List<ActivityInfo> findActivityInfos(Integer dayId) {
-        List<Activity> activities = activityRepository.findActivitiesBy(dayId);
-        List<ActivityInfo> activityInfos = activityMapper.toActivityInfos(activities);
-        return activityInfos;
-    }
 
     public void addNewActivity(NewActivity newActivity) {
+        createAndSaveActivity(newActivity);
+    }
+
+    public void updateActivityStatus(Integer activityId, Boolean isDone) {
+        updateAndSaveActivityStatus(activityId, isDone);
+    }
+
+    public List<ActivityInfo> findActivityInfos(Integer dayId) {
+        List<Activity> activities = getActivitiesBy(dayId);
+        return activityMapper.toActivityInfos(activities);
+    }
+
+    public void deleteActivity(Integer activityId) {
+        getAndDeleteActivity(activityId);
+    }
+
+    private void createAndSaveActivity(NewActivity newActivity) {
         Activity activity = createActivity(newActivity);
         activityRepository.save(activity);
     }
 
-    public void deleteActivity(Integer activityId) {
-        Activity activity = activityRepository.getReferenceById(activityId);
-        activityRepository.delete(activity);
-    }
-
     private Activity createActivity(NewActivity newActivity) {
-        Day day = dayRepository.getReferenceById(newActivity.getDayId());
+        Day day = getDay(newActivity);
         Activity activity = activityMapper.toActivity(newActivity);
         activity.setDay(day);
         return activity;
     }
 
+    private void updateAndSaveActivityStatus(Integer activityId, Boolean isDone) {
+        Activity activity = getAndUpdateActivity(activityId, isDone);
+        activityRepository.save(activity);
+    }
 
+    private Activity getAndUpdateActivity(Integer activityId, Boolean isDone) {
+        Activity activity = getActivity(activityId);
+        activity.setIsDone(isDone);
+        return activity;
+    }
+
+    private Day getDay(NewActivity newActivity) {
+        return dayRepository.getReferenceById(newActivity.getDayId());
+    }
+
+    private Activity getActivity(Integer activityId) {
+        return activityRepository.getReferenceById(activityId);
+    }
+
+    private List<Activity> getActivitiesBy(Integer dayId) {
+        return activityRepository.findActivitiesBy(dayId);
+    }
+
+    private void getAndDeleteActivity(Integer activityId) {
+        Activity activity = getActivity(activityId);
+        activityRepository.delete(activity);
+    }
 }

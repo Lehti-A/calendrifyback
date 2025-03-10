@@ -18,9 +18,6 @@ public interface ActivityMapper {
 
     List<ActivityInfo> toActivityInfos(List<Activity> activities);
 
-
     @Mapping(source = "topic", target = "topic")
     Activity toActivity(NewActivity newActivity);
-
-
 }

@@ -8,8 +8,6 @@ import eu.calendrify.calendrifyback.persistence.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 import static eu.calendrify.calendrifyback.infrastructure.Error.INCORRECT_CREDENTIALS;
 import static eu.calendrify.calendrifyback.status.Status.ACTIVE;
 
@@ -21,12 +19,11 @@ public class LoginService {
     private final UserMapper userMapper;
 
     public LoginResponse login(String email, String password) {
-        Optional<User> optionalUser = userRepository.findUserBy(email, password, ACTIVE.getCode());
-        User user = optionalUser.orElseThrow(() -> new ForbiddenException(INCORRECT_CREDENTIALS.getMessage(), INCORRECT_CREDENTIALS.getErrorCode()));
-        LoginResponse loginResponse = userMapper.toLoginResponse(user);
-        return loginResponse;
+        User user = getUserBy(email, password);
+        return userMapper.toLoginResponse(user);
     }
 
+    private User getUserBy(String email, String password) {
+        return userRepository.findUserBy(email, password, ACTIVE.getCode()).orElseThrow(() -> new ForbiddenException(INCORRECT_CREDENTIALS.getMessage(), INCORRECT_CREDENTIALS.getErrorCode()));
+    }
 }
-
-

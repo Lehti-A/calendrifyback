@@ -20,28 +20,41 @@ public class MeetingService {
     private final MeetingRepository meetingRepository;
     private final MeetingMapper meetingMapper;
 
-
-    public List<MeetingInfo> findMeetingInfos(Integer dayId) {
-        List<Meeting> meetings = meetingRepository.findMeetingBy(dayId);
-        List<MeetingInfo> meetingInfos = meetingMapper.toMeetingInfos(meetings);
-        return meetingInfos;
-
+    public void addNewMeeting(NewMeeting newMeeting) {
+        createAndSaveMeeting(newMeeting);
     }
 
-    public void addNewMeeting(NewMeeting newMeeting) {
-        Meeting meeting = createNewMeeting(newMeeting);
-        meetingRepository.save(meeting);
+    public List<MeetingInfo> findMeetingInfos(Integer dayId) {
+        List<Meeting> meetings = getMeetingListBy(dayId);
+        return meetingMapper.toMeetingInfos(meetings);
     }
 
     public void deleteMeeting(Integer meetingId) {
-        Meeting meeting = meetingRepository.getReferenceById(meetingId);
-        meetingRepository.delete(meeting);
+        getAndDeleteMeeting(meetingId);
     }
 
-    private Meeting createNewMeeting(NewMeeting newMeeting) {
+    private void createAndSaveMeeting(NewMeeting newMeeting) {
+        Meeting meeting = createMeeting(newMeeting);
+        meetingRepository.save(meeting);
+    }
+
+    private Meeting createMeeting(NewMeeting newMeeting) {
         Day day = dayRepository.getReferenceById(newMeeting.getDayId());
         Meeting meeting = meetingMapper.toMeeting(newMeeting);
         meeting.setDay(day);
         return meeting;
+    }
+
+    private List<Meeting> getMeetingListBy(Integer dayId) {
+        return meetingRepository.findMeetingBy(dayId);
+    }
+
+    private void getAndDeleteMeeting(Integer meetingId) {
+        Meeting meeting = getMeetingBy(meetingId);
+        meetingRepository.delete(meeting);
+    }
+
+    private Meeting getMeetingBy(Integer meetingId) {
+        return meetingRepository.getReferenceById(meetingId);
     }
 }
