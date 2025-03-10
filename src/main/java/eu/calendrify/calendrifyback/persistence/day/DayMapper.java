@@ -11,8 +11,8 @@ public interface DayMapper {
 
     @Mapping(source = "date", target = "date")
     @Mapping(source = "type", target = "type")
-    @Mapping(source = "focus", target = "focus")
-    @Mapping(source = "thoughts", target = "thoughts")
+    @Mapping(constant = "", target = "focus")
+    @Mapping(constant = "", target = "thoughts")
     Day toDay(NewDay newDay);
 
     @Mapping(source = "date", target = "type")

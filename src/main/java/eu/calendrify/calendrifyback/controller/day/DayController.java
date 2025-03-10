@@ -9,8 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-
 @RestController
 @RequiredArgsConstructor
 
@@ -19,22 +17,18 @@ public class DayController {
     private final DayService dayService;
 
     @PostMapping("/day")
-    @Operation(summary = "Lisab andmebaasi day andmed")
-    public void addNewDay(@RequestBody NewDay newDay) {
-        dayService.addNewDay(newDay);
+    @Operation(
+            summary = "Lisab andmebaasi day andmed ja/või tagastab day andmed",
+            description = "Kui andmebaasis ei ole day kannet, siis süsteem loob selle. Kui andmebaasis on day kanne olemas, siis toob day andmed ära andmebaasist."
+    )
+    public DayInfo addNewDay(@RequestBody NewDay newDay) {
+        return dayService.addNewDay(newDay);
     }
 
     @GetMapping("/day")
     @Operation(summary = "Toob andmebaasist day andmed")
     public DayInfo findDayInfo(@RequestParam Integer dayId) {
         return dayService.findDayInfo(dayId);
-    }
-
-    @GetMapping("/day-existence-info")
-    @Operation(summary = "Vaatab, kas andmebaasis on loodud valitud day kanne",
-            description = "Kui andmebaasis ei ole day kannet, siis süsteem loob selle. Kui andmebaasis on day kanne olemas, siis toob day andmed ära andmebaasist.")
-    public void getDayExistenceInfo(@RequestParam Integer userId, @RequestParam LocalDate date, @RequestParam String type) {
-        dayService.getDayExistenceInfo(userId, date, type);
     }
 
     @PatchMapping("/day-focus")

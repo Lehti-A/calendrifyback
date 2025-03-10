@@ -37,6 +37,14 @@ public class UserService {
     public void addNewUser(NewUser newUser) {
         User user = createAndSaveUser(newUser);
         createAndSaveProfile(newUser, user);
+        // todo: otsi general_goal_template kõik read (mõtle ka järjestusele)
+        // todo: lood uue tühja listi personal_goal_template entity-test
+        // todo: teha for tsükkel general_goal_template ridadega
+        // todo: igal tsüklil lood uue personal_goal_template objekti
+        // todo: paned setteriga vajaliku info külge
+        // todo: ja lisad personal_goal_template entity-te listi
+        // todo: pärast for tsüklit salvesatd kõik personal_goal_template read saveAll() meetodiga
+
     }
 
     public UserInfo findUserInfos(Integer userId) {

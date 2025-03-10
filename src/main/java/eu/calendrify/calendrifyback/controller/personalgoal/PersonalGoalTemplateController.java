@@ -26,8 +26,7 @@ public class PersonalGoalTemplateController {
     @GetMapping("/settings-personal-goal")
     @Operation(summary = "Tagastab PersonalGoalTemplate listi andmed")
     public List<PersonalGoalTemplateInfo> findPersonalGoalTemplateInfos(Integer userId) {
-        List<PersonalGoalTemplateInfo> personalGoalTemplateInfos = personalGoalService.findPersonalGoalTemplateInfos(userId);
-        return personalGoalTemplateInfos;
+        return personalGoalService.findPersonalGoalTemplateInfos(userId);
     }
 
     @DeleteMapping("/settings-personal-goal")

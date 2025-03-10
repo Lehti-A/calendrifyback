@@ -28,8 +28,7 @@ public class PersonalGoalTemplateService {
 
     public List<PersonalGoalTemplateInfo> findPersonalGoalTemplateInfos(Integer userId) {
         List<PersonalGoalTemplate> personalGoalTemplates = personalGoalTemplateRepository.findPersonalGoalTemplatesBy(userId);
-        List<PersonalGoalTemplateInfo> personalGoalTemplateInfos = personalGoalTemplateMapper.toPersonalGoalTemplateInfos(personalGoalTemplates);
-        return personalGoalTemplateInfos;
+        return personalGoalTemplateMapper.toPersonalGoalTemplateInfos(personalGoalTemplates);
     }
 
 
