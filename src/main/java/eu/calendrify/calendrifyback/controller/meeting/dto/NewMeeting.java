@@ -20,7 +20,7 @@ public class NewMeeting implements Serializable {
     @NotNull
     private Integer dayId;
     @NotNull
-    private LocalTime time;
+    private String time;
     @NotNull
     @Size(max = 255)
     private String subject;

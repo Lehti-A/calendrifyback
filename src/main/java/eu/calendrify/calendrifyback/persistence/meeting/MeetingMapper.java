@@ -2,11 +2,10 @@ package eu.calendrify.calendrifyback.persistence.meeting;
 
 import eu.calendrify.calendrifyback.controller.meeting.dto.MeetingInfo;
 import eu.calendrify.calendrifyback.controller.meeting.dto.NewMeeting;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.ReportingPolicy;
+import org.mapstruct.*;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
@@ -19,8 +18,14 @@ public interface MeetingMapper {
     List<MeetingInfo> toMeetingInfos(List<Meeting> meetings);
 
 
-    @Mapping(source = "time", target = "time")
+    @Mapping(source = "time", target = "time", qualifiedByName = "toLocalTime")
     @Mapping(source = "subject", target = "subject")
     Meeting toMeeting(NewMeeting newMeeting);
+
+    @Named("toLocalTime")
+    static LocalTime toLocalTime(String time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return LocalTime.parse(time, formatter);
+    }
 
 }
