@@ -13,26 +13,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class PersonalGoalTemplateController {
 
-    private final PersonalGoalTemplateService personalGoalService;
+    private final PersonalGoalTemplateService personalGoalTemplateService;
 
 //todo    Küsida, kas peab olema veel path juures, kuna user profiili muutmisel on sama path.
 
     @PostMapping("/settings-personal-goal")
     @Operation(summary = "Lisab uue PersonalGoalTemplate-i välja")
     public void addNewPersonalGoalTemplate(@RequestBody NewPersonalGoalTemplate newPersonalGoalTemplate) {
-        personalGoalService.addNewPersonalGoalTemplate(newPersonalGoalTemplate);
+        personalGoalTemplateService.addNewPersonalGoalTemplate(newPersonalGoalTemplate);
     }
 
     @GetMapping("/settings-personal-goal")
     @Operation(summary = "Tagastab PersonalGoalTemplate listi andmed")
     public List<PersonalGoalTemplateInfo> findPersonalGoalTemplateInfos(Integer userId) {
-        return personalGoalService.findPersonalGoalTemplateInfos(userId);
+        return personalGoalTemplateService.findPersonalGoalTemplateInfos(userId);
     }
 
     @DeleteMapping("/settings-personal-goal")
     @Operation(summary = "Kustutab PersonalGoalTemplate-i välja")
     public void deletePersonalGoalTemplate(Integer personalGoalTemplateId) {
-        personalGoalService.deletePersonalGoalTemplate(personalGoalTemplateId);
+        personalGoalTemplateService.deletePersonalGoalTemplate(personalGoalTemplateId);
     }
 
 

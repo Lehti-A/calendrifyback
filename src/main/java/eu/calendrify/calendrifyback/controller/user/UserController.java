@@ -23,6 +23,9 @@ public class UserController {
 
     @PostMapping("/register")
     @Operation(summary = "Uue kasutaja lisamine")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK"),
+            @ApiResponse(responseCode = "409", description = "Entered email is already in use (errorCode 880)", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public void addNewUser(@RequestBody @Valid NewUser newUser) {
         userService.addNewUser(newUser);
     }
@@ -50,7 +53,7 @@ public class UserController {
             description = "Tabelitest ühtegi kirjet ei eemaldata, 'user' tabelis muudetakse status väärtus D-ks ")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK"),
-            @ApiResponse(responseCode = "404", description = "Ei leidnud primary keyd (errorCode 888)", content = @Content(schema = @Schema(implementation = ApiError.class)))})
+            @ApiResponse(responseCode = "404", description = "Primary key not found (errorCode 888)", content = @Content(schema = @Schema(implementation = ApiError.class)))})
     public void removeUser(@RequestParam Integer userId) {
         userService.removeUser(userId);
     }

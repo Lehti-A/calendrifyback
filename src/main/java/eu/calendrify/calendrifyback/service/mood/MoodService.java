@@ -1,5 +1,6 @@
 package eu.calendrify.calendrifyback.service.mood;
 
+import eu.calendrify.calendrifyback.controller.mood.dto.MoodInfo;
 import eu.calendrify.calendrifyback.infrastructure.exception.DataNotFoundException;
 import eu.calendrify.calendrifyback.persistence.mood.Mood;
 import eu.calendrify.calendrifyback.persistence.mood.MoodRepository;
@@ -24,5 +25,15 @@ public class MoodService {
     private Mood getSelectedMood(Integer moodId) {
         return moodRepository.findById(moodId)
                 .orElseThrow(() -> new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode()));
+    }
+
+    public MoodInfo findMoodInfo(Integer dayId) {
+        Mood mood = moodRepository.findMoodBy(dayId);
+        if (mood == null) {
+            return null;
+        }
+        MoodInfo moodInfo = new MoodInfo();
+        moodInfo.setState(mood.getState());
+        return moodInfo;
     }
 }

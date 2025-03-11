@@ -10,6 +10,10 @@ import eu.calendrify.calendrifyback.persistence.day.DayMapper;
 import eu.calendrify.calendrifyback.persistence.day.DayRepository;
 import eu.calendrify.calendrifyback.persistence.mood.Mood;
 import eu.calendrify.calendrifyback.persistence.mood.MoodRepository;
+import eu.calendrify.calendrifyback.persistence.personalgoal.PersonalGoal;
+import eu.calendrify.calendrifyback.persistence.personalgoal.PersonalGoalRepository;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplate;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplateRepository;
 import eu.calendrify.calendrifyback.persistence.step.Step;
 import eu.calendrify.calendrifyback.persistence.step.StepMapper;
 import eu.calendrify.calendrifyback.persistence.step.StepRepository;
@@ -23,6 +27,8 @@ import eu.calendrify.calendrifyback.status.Type;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static eu.calendrify.calendrifyback.infrastructure.Error.FOREIGN_KEY_NOT_FOUND;
@@ -36,6 +42,8 @@ public class DayService {
     private final DayMapper dayMapper;
     private final MoodRepository moodRepository;
     private final WaterRepository waterRepository;
+    private final PersonalGoalRepository personalGoalRepository;
+    private final PersonalGoalTemplateRepository personalGoalTemplateRepository;
     private final WaterMapper waterMapper;
     private final StepRepository stepRepository;
     private final StepMapper stepMapper;
@@ -73,11 +81,20 @@ public class DayService {
         // todo: teha see kui on useri alt tehtud goalide asi.
 
         if (Type.PERSONAL.getCode().equals(newDay.getType())) {
-
+            List<PersonalGoalTemplate> personalGoalTemplates = personalGoalTemplateRepository.findPersonalGoalTemplatesBy(user.getId());
+            List<PersonalGoal> personalGoals = new ArrayList<>();
+            for (PersonalGoalTemplate template : personalGoalTemplates) {
+                PersonalGoal personalGoal = new PersonalGoal();
+                personalGoal.setTopic(template.getTopic());
+                personalGoal.setDay(day);
+                personalGoal.setIsDone(false);
+                personalGoals.add(personalGoal);
+            }
+            personalGoalRepository.saveAll(personalGoals);
         }
-
-
+        return dayMapper.toDayInfo(day);
     }
+
 
     private Day createAndSaveDay(NewDay newDay) {
         Day day = createDay(newDay);

@@ -4,7 +4,14 @@ import eu.calendrify.calendrifyback.controller.user.dto.NewUser;
 import eu.calendrify.calendrifyback.controller.user.dto.UpdateUser;
 import eu.calendrify.calendrifyback.controller.user.dto.UpdateUserPassword;
 import eu.calendrify.calendrifyback.controller.user.dto.UserInfo;
+import eu.calendrify.calendrifyback.infrastructure.Error;
 import eu.calendrify.calendrifyback.infrastructure.exception.DataNotFoundException;
+import eu.calendrify.calendrifyback.infrastructure.exception.EmailAlreadyExistsException;
+import eu.calendrify.calendrifyback.persistence.generalgoaltemplate.GeneralGoalTemplate;
+import eu.calendrify.calendrifyback.persistence.generalgoaltemplate.GeneralGoalTemplateRepository;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplate;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplateMapper;
+import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplateRepository;
 import eu.calendrify.calendrifyback.persistence.profile.Profile;
 import eu.calendrify.calendrifyback.persistence.profile.ProfileMapper;
 import eu.calendrify.calendrifyback.persistence.profile.ProfileRepository;
@@ -17,6 +24,9 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static eu.calendrify.calendrifyback.infrastructure.Error.FOREIGN_KEY_NOT_FOUND;
 import static eu.calendrify.calendrifyback.infrastructure.Error.PRIMARY_KEY_NOT_FOUND;
@@ -32,19 +42,32 @@ public class UserService {
     private final ProfileRepository profileRepository;
     private final UserMapper userMapper;
     private final ProfileMapper profileMapper;
+    private final GeneralGoalTemplateRepository generalGoalTemplateRepository;
+    private final PersonalGoalTemplateRepository personalGoalTemplateRepository;
 
     @Transactional
     public void addNewUser(NewUser newUser) {
+        if (userRepository.existsByEmail(newUser.getEmail())) {
+            throw new EmailAlreadyExistsException(Error.INCORRECT_EMAIL.getMessage() + newUser.getEmail(), Error.INCORRECT_EMAIL.getErrorCode());
+        }
         User user = createAndSaveUser(newUser);
         createAndSaveProfile(newUser, user);
-        // todo: otsi general_goal_template kõik read (mõtle ka järjestusele)
-        // todo: lood uue tühja listi personal_goal_template entity-test
-        // todo: teha for tsükkel general_goal_template ridadega
-        // todo: igal tsüklil lood uue personal_goal_template objekti
-        // todo: paned setteriga vajaliku info külge
-        // todo: ja lisad personal_goal_template entity-te listi
-        // todo: pärast for tsüklit salvesatd kõik personal_goal_template read saveAll() meetodiga
+        List<GeneralGoalTemplate> generalGoalTemplates = generalGoalTemplateRepository.findGeneralGoalTemplatesByOrderAsc();
+        List<PersonalGoalTemplate> personalGoalTemplates = new ArrayList<>();
+        for (GeneralGoalTemplate template : generalGoalTemplates) {
+            PersonalGoalTemplate personalGoalTemplate = new PersonalGoalTemplate();
+            personalGoalTemplate.setTopic(template.getTopic());
+            personalGoalTemplate.setUser(user);
+            personalGoalTemplates.add(personalGoalTemplate);
+        }
+        personalGoalTemplateRepository.saveAll(personalGoalTemplates);
 
+    }
+
+    private User createAndSaveUser(NewUser newUser) {
+        User user = createUser(newUser);
+        userRepository.save(user);
+        return user;
     }
 
     public UserInfo findUserInfos(Integer userId) {
@@ -71,11 +94,11 @@ public class UserService {
         removeAndSaveUser(user);
     }
 
-    private User createAndSaveUser(NewUser newUser) {
-        User user = createUser(newUser);
-        userRepository.save(user);
-        return user;
-    }
+//    private User createAndSaveUser(NewUser newUser) {
+//        User user = createUser(newUser);
+//        userRepository.save(user);
+//        return user;
+//    }
 
     private User createUser(NewUser newUser) {
         Role role = roleRepository.getReferenceById(ROLE_CUSTOMER);

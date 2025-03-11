@@ -2,6 +2,7 @@ package eu.calendrify.calendrifyback.persistence.personalgoaltemplate;
 
 import eu.calendrify.calendrifyback.controller.personalgoal.dto.NewPersonalGoalTemplate;
 import eu.calendrify.calendrifyback.controller.personalgoal.dto.PersonalGoalTemplateInfo;
+import eu.calendrify.calendrifyback.persistence.generalgoaltemplate.GeneralGoalTemplate;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
@@ -18,6 +19,11 @@ public interface PersonalGoalTemplateMapper {
     List<PersonalGoalTemplateInfo> toPersonalGoalTemplateInfos(List<PersonalGoalTemplate> personalGoalTemplates);
 
 
+
+
     @Mapping(source = "topic", target = "topic")
     PersonalGoalTemplate toPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate);
-}
+    List<PersonalGoalTemplate> toPersonalGoalTemplates(List<GeneralGoalTemplate> newPersonalGoalTemplates);
+
+
+    }
