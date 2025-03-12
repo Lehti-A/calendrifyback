@@ -12,6 +12,7 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ActivityMapper {
 
+    @Mapping(source = "id", target = "activityId")
     @Mapping(source = "topic", target = "topic")
     @Mapping(source = "isDone", target = "isDone")
     ActivityInfo toActivityInfo(Activity activity);
