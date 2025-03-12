@@ -19,8 +19,8 @@ public class PersonalGoalTemplateController {
 
     @PostMapping("/settings-personal-goal")
     @Operation(summary = "Lisab uue PersonalGoalTemplate-i välja")
-    public void addNewPersonalGoalTemplate(@RequestBody NewPersonalGoalTemplate newPersonalGoalTemplate) {
-        personalGoalTemplateService.addNewPersonalGoalTemplate(newPersonalGoalTemplate);
+    public void addNewPersonalGoalTemplate(@RequestBody NewPersonalGoalTemplate newPersonalGoalTemplate, @RequestParam Integer userId) {
+        personalGoalTemplateService.addNewPersonalGoalTemplate(newPersonalGoalTemplate, userId);
     }
 
     @GetMapping("/settings-personal-goal")

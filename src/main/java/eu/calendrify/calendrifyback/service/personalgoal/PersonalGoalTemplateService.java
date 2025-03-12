@@ -20,8 +20,8 @@ public class PersonalGoalTemplateService {
     private final PersonalGoalTemplateRepository personalGoalTemplateRepository;
     private final PersonalGoalTemplateMapper personalGoalTemplateMapper;
 
-    public void addNewPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate) {
-        PersonalGoalTemplate personalGoalTemplate = createNewPersonalGoalTemplate(newPersonalGoalTemplate);
+    public void addNewPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate, Integer userId) {
+        PersonalGoalTemplate personalGoalTemplate = createNewPersonalGoalTemplate(newPersonalGoalTemplate, userId);
         personalGoalTemplateRepository.save(personalGoalTemplate);
 
     }
@@ -38,8 +38,8 @@ public class PersonalGoalTemplateService {
 
     }
 
-    private PersonalGoalTemplate createNewPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate) {
-        User user = userRepository.findUserById(newPersonalGoalTemplate.getUserId());
+    private PersonalGoalTemplate createNewPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate, Integer userId) {
+        User user = userRepository.findUserById(userId);
         PersonalGoalTemplate personalGoalTemplate = personalGoalTemplateMapper.toPersonalGoalTemplate(newPersonalGoalTemplate);
         personalGoalTemplate.setUser(user);
         return personalGoalTemplate;
