@@ -44,8 +44,8 @@ public class UserController {
 
     @PatchMapping("/settings-password")
     @Operation(summary = "Uuendab kasutaja parooli")
-    public void updateUserPassword(@RequestBody @Valid UpdateUserPassword updateUserPassword) {
-        userService.updateUserPassword(updateUserPassword);
+    public void updateUserPassword(@RequestBody @Valid UpdateUserPassword updateUserPassword, @RequestParam Integer userId) {
+        userService.updateUserPassword(updateUserPassword, userId);
     }
 
     @DeleteMapping("/settings-user")

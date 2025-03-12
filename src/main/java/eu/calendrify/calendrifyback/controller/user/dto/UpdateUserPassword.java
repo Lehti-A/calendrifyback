@@ -18,9 +18,6 @@ import java.io.Serializable;
 public class UpdateUserPassword implements Serializable {
 
     @NotNull
-    private Integer id;
-
-    @NotNull
     @Size(max = 255)
-    private String password;
+    private String newPassword;
 }

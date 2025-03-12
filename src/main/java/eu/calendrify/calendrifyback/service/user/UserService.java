@@ -10,7 +10,6 @@ import eu.calendrify.calendrifyback.infrastructure.exception.EmailAlreadyExistsE
 import eu.calendrify.calendrifyback.persistence.generalgoaltemplate.GeneralGoalTemplate;
 import eu.calendrify.calendrifyback.persistence.generalgoaltemplate.GeneralGoalTemplateRepository;
 import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplate;
-import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplateMapper;
 import eu.calendrify.calendrifyback.persistence.personalgoaltemplate.PersonalGoalTemplateRepository;
 import eu.calendrify.calendrifyback.persistence.profile.Profile;
 import eu.calendrify.calendrifyback.persistence.profile.ProfileMapper;
@@ -84,8 +83,8 @@ public class UserService {
         updateAndSaveProfile(updateUser, userId);
     }
 
-    public void updateUserPassword(@Valid UpdateUserPassword updateUserPassword) {
-        User user = getUserById(updateUserPassword);
+    public void updateUserPassword(@Valid UpdateUserPassword updateUserPassword, Integer userId) {
+        User user = getUserBy(userId);
         updateAndSavePassword(updateUserPassword, user);
     }
 
@@ -93,12 +92,6 @@ public class UserService {
         User user = getUserBy(userId);
         removeAndSaveUser(user);
     }
-
-//    private User createAndSaveUser(NewUser newUser) {
-//        User user = createUser(newUser);
-//        userRepository.save(user);
-//        return user;
-//    }
 
     private User createUser(NewUser newUser) {
         Role role = roleRepository.getReferenceById(ROLE_CUSTOMER);
@@ -147,12 +140,8 @@ public class UserService {
         profileRepository.save(profile);
     }
 
-    private User getUserById(UpdateUserPassword updateUserPassword) {
-        return userRepository.findUserById(updateUserPassword.getId());
-    }
-
     private void updateAndSavePassword(UpdateUserPassword updateUserPassword, User user) {
-        user.setPassword(updateUserPassword.getPassword());
+        user.setPassword(updateUserPassword.getNewPassword());
         userRepository.save(user);
     }
 

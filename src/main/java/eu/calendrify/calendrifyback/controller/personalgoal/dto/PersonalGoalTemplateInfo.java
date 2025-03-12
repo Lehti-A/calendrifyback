@@ -16,8 +16,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonalGoalTemplateInfo implements Serializable {
-    @NotNull
-    private Integer userId;
+
     @NotNull
     @Size(max = 255)
     private String topic;
