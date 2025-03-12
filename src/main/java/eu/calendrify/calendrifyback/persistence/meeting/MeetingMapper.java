@@ -11,6 +11,7 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface MeetingMapper {
 
+    @Mapping(source = "id", target = "meetingId")
     @Mapping(source = "time", target = "time")
     @Mapping(source = "subject", target = "subject")
     MeetingInfo toMeetingInfo(Meeting meeting);

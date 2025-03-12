@@ -17,6 +17,9 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class MeetingInfo implements Serializable {
+
+    @NotNull
+    private Integer meetingId;
     @NotNull
     private LocalTime time;
     @NotNull
