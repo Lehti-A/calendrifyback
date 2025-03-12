@@ -15,9 +15,10 @@ public interface DayMapper {
     @Mapping(constant = "", target = "thoughts")
     Day toDay(NewDay newDay);
 
-    @Mapping(source = "date", target = "type")
-    @Mapping(source = "date", target = "focus")
-    @Mapping(source = "date", target = "thoughts")
+    @Mapping(source = "id", target = "dayId")
+    @Mapping(source = "type", target = "type")
+    @Mapping(source = "focus", target = "focus")
+    @Mapping(source = "thoughts", target = "thoughts")
     @Mapping(source = "date", target = "date")
     @Mapping(source = "date", target = "monthName", qualifiedByName = "toMonthName")
     @Mapping(source = "date", target = "dayNumber", qualifiedByName = "toDayNumber")
