@@ -8,13 +8,12 @@ import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
-/**
- * DTO for {@link eu.calendrify.calendrifyback.persistence.personalgoal.PersonalGoal}
- */
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class PersonalGoalInfo implements Serializable {
+
     @NotNull
     private Integer id;
     @NotNull
