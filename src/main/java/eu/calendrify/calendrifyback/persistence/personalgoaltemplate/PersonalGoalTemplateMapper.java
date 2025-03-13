@@ -13,8 +13,12 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface PersonalGoalTemplateMapper {
 
+
+
+    @Mapping(source = "id", target = "personalGoalTemplateId")
     @Mapping(source = "topic", target = "topic")
     PersonalGoalTemplateInfo toPersonalGoalTemplateInfo(PersonalGoalTemplate personalGoalTemplate);
+
 
     List<PersonalGoalTemplateInfo> toPersonalGoalTemplateInfos(List<PersonalGoalTemplate> personalGoalTemplates);
 
@@ -22,6 +26,7 @@ public interface PersonalGoalTemplateMapper {
 
 
     @Mapping(source = "topic", target = "topic")
+
     PersonalGoalTemplate toPersonalGoalTemplate(NewPersonalGoalTemplate newPersonalGoalTemplate);
     List<PersonalGoalTemplate> toPersonalGoalTemplates(List<GeneralGoalTemplate> newPersonalGoalTemplates);
 
