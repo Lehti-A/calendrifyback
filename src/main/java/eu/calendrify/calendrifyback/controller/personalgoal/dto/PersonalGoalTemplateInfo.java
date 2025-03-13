@@ -18,6 +18,8 @@ import java.io.Serializable;
 public class PersonalGoalTemplateInfo implements Serializable {
 
     @NotNull
+    private Integer personalGoalTemplateId;
+    @NotNull
     @Size(max = 255)
     private String topic;
 }
