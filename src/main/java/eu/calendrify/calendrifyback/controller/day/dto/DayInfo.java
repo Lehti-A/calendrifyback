@@ -18,6 +18,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class DayInfo implements Serializable {
     @NotNull
+    private Integer dayId;
+    @NotNull
     @Size(max = 1)
     private String type;
     @NotNull
