@@ -17,6 +17,13 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class MoodInfo implements Serializable {
     @NotNull
+    private Integer moodId;
+
+    @NotNull
     @Size(max = 1)
     private String state;
+
+    public MoodInfo(String state) {
+        this.state = state;
+    }
 }

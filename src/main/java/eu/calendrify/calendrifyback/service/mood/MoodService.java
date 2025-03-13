@@ -33,6 +33,7 @@ public class MoodService {
             return null;
         }
         MoodInfo moodInfo = new MoodInfo();
+        moodInfo.setMoodId(mood.getId());
         moodInfo.setState(mood.getState());
         return moodInfo;
     }
