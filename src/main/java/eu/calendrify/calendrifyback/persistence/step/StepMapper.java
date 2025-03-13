@@ -12,6 +12,7 @@ public interface StepMapper {
     Step toStep(NewDay newDay);
 
 
+    @Mapping(source = "id", target = "stepId")
     @Mapping(source = "count", target = "count")
     StepInfo toStepInfo (Step step);
 

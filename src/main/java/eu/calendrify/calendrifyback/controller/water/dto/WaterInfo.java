@@ -14,5 +14,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class WaterInfo implements Serializable {
+
+    private Integer waterId;
     private Integer count;
 }

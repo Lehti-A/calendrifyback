@@ -16,5 +16,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StepInfo implements Serializable {
+
+    private Integer stepId;
     private Integer count;
 }
