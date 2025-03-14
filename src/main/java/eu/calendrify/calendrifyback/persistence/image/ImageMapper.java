@@ -12,12 +12,19 @@ import java.util.List;
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = MappingConstants.ComponentModel.SPRING)
 public interface ImageMapper {
 
+
+
+    @Mapping(source = "id", target = "imageId")
+    @Mapping(source = "day.id", target = "dayId")
     @Mapping(source = "data", target = "data")
     ImageInfo toImageInfo(Image image);
 
     List<ImageInfo> toImageInfos(List<Image> images);
 
+
     @Mapping(source = "data", target = "data")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "day", ignore = true)
     Image toImage(NewImage newImage);
 
 }

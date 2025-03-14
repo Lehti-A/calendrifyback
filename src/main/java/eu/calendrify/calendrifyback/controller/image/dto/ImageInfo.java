@@ -15,6 +15,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ImageInfo implements Serializable {
+
+    @NotNull
+    private Integer imageId;
     @NotNull
     private Integer dayId;
     @NotNull
