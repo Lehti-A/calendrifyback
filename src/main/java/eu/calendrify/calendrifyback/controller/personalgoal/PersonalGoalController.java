@@ -1,14 +1,11 @@
 package eu.calendrify.calendrifyback.controller.personalgoal;
 
+import eu.calendrify.calendrifyback.controller.personalgoal.dto.NewPersonalGoal;
 import eu.calendrify.calendrifyback.controller.personalgoal.dto.PersonalGoalInfo;
-import eu.calendrify.calendrifyback.controller.personalgoal.dto.PersonalGoalTemplateInfo;
 import eu.calendrify.calendrifyback.service.personalgoal.PersonalGoalService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,11 +21,27 @@ public class PersonalGoalController {
         return personalGoalService.findPersonalGoalInfos(dayId);
     }
 
+    @PostMapping("/personal-goal")
+    @Operation(summary = "Lisab uue PersonalGoali")
+    public void addPersonalGoal(@RequestBody NewPersonalGoal newPersonalGoal, @RequestParam Integer dayId) {
+        personalGoalService.addPersonalGoal(newPersonalGoal, dayId);
+    }
+
     @PatchMapping("/personal-goal")
     @Operation(summary = "Märgib PersonalGoali tehtuks/mitte tehtuks")
     public void updatePersonalGoalStatus(@RequestParam Integer personalGoalId, @RequestParam Boolean isDone) {
         personalGoalService.updatePersonalGoalStatus(personalGoalId, isDone);
     }
 
+    @DeleteMapping("/personal-goal")
+    @Operation(summary = "Kustutab PersonalGoali")
+    public void deletePersonalGoal(@RequestParam Integer personalGoalId) {
+        personalGoalService.deletePersonalGoal(personalGoalId);
+    }
 
+    @PostMapping("/personal-goal/update")
+    @Operation(summary = "Uuendab PersonalGoali teemat")
+    public void updatePersonalGoalTopic(@RequestParam Integer personalGoalId, @RequestParam String topic) {
+        personalGoalService.updatePersonalGoalTopic(personalGoalId, topic);
+    }
 }
