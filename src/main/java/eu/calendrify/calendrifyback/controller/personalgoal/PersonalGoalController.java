@@ -39,9 +39,4 @@ public class PersonalGoalController {
         personalGoalService.deletePersonalGoal(personalGoalId);
     }
 
-    @PostMapping("/personal-goal/update")
-    @Operation(summary = "Uuendab PersonalGoali teemat")
-    public void updatePersonalGoalTopic(@RequestParam Integer personalGoalId, @RequestParam String topic) {
-        personalGoalService.updatePersonalGoalTopic(personalGoalId, topic);
-    }
 }
