@@ -19,5 +19,9 @@ public class UpdateUserPassword implements Serializable {
 
     @NotNull
     @Size(max = 255)
+    private String currentPassword;
+
+    @NotNull
+    @Size(max = 255)
     private String newPassword;
 }

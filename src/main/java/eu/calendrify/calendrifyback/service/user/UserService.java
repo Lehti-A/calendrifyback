@@ -85,7 +85,18 @@ public class UserService {
 
     public void updateUserPassword(@Valid UpdateUserPassword updateUserPassword, Integer userId) {
         User user = getUserBy(userId);
-        updateAndSavePassword(updateUserPassword, user);
+        if (user == null) {
+            throw new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode());
+        }
+
+        // Verify current password matches
+        if (!user.getPassword().equals(updateUserPassword.getCurrentPassword())) {
+            throw new IllegalArgumentException("Current password is incorrect");
+        }
+
+        // Update password
+        user.setPassword(updateUserPassword.getNewPassword());
+        userRepository.save(user);
     }
 
     public void removeUser(Integer userId) {
