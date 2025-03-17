@@ -1,9 +1,7 @@
 package eu.calendrify.calendrifyback.service.step;
 
-import eu.calendrify.calendrifyback.controller.mood.dto.MoodInfo;
 import eu.calendrify.calendrifyback.controller.step.dto.StepInfo;
 import eu.calendrify.calendrifyback.infrastructure.exception.DataNotFoundException;
-import eu.calendrify.calendrifyback.persistence.mood.Mood;
 import eu.calendrify.calendrifyback.persistence.step.Step;
 import eu.calendrify.calendrifyback.persistence.step.StepMapper;
 import eu.calendrify.calendrifyback.persistence.step.StepRepository;

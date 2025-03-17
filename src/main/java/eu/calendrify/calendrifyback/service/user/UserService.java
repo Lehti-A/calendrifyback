@@ -88,12 +88,10 @@ public class UserService {
         if (user == null) {
             throw new DataNotFoundException(PRIMARY_KEY_NOT_FOUND.getMessage(), PRIMARY_KEY_NOT_FOUND.getErrorCode());
         }
-
         // Verify current password matches
         if (!user.getPassword().equals(updateUserPassword.getCurrentPassword())) {
             throw new IllegalArgumentException("Current password is incorrect");
         }
-
         // Update password
         user.setPassword(updateUserPassword.getNewPassword());
         userRepository.save(user);
@@ -149,11 +147,6 @@ public class UserService {
         profile.setAddress(updateUser.getAddress());
         profile.setPhone(updateUser.getPhone());
         profileRepository.save(profile);
-    }
-
-    private void updateAndSavePassword(UpdateUserPassword updateUserPassword, User user) {
-        user.setPassword(updateUserPassword.getNewPassword());
-        userRepository.save(user);
     }
 
     private void removeAndSaveUser(User user) {

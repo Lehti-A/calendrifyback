@@ -26,13 +26,13 @@ public class ActivityService {
         createAndSaveActivity(newActivity);
     }
 
-    public void updateActivityStatus(Integer activityId, Boolean isDone) {
-        updateAndSaveActivityStatus(activityId, isDone);
-    }
-
     public List<ActivityInfo> findActivityInfos(Integer dayId) {
         List<Activity> activities = getActivitiesBy(dayId);
         return activityMapper.toActivityInfos(activities);
+    }
+
+    public void updateActivityStatus(Integer activityId, Boolean isDone) {
+        updateAndSaveActivityStatus(activityId, isDone);
     }
 
     public void deleteActivity(Integer activityId) {
@@ -51,6 +51,14 @@ public class ActivityService {
         return activity;
     }
 
+    private Day getDay(NewActivity newActivity) {
+        return dayRepository.getReferenceById(newActivity.getDayId());
+    }
+
+    private List<Activity> getActivitiesBy(Integer dayId) {
+        return activityRepository.findActivitiesBy(dayId);
+    }
+
     private void updateAndSaveActivityStatus(Integer activityId, Boolean isDone) {
         Activity activity = getAndUpdateActivity(activityId, isDone);
         activityRepository.save(activity);
@@ -62,16 +70,8 @@ public class ActivityService {
         return activity;
     }
 
-    private Day getDay(NewActivity newActivity) {
-        return dayRepository.getReferenceById(newActivity.getDayId());
-    }
-
     private Activity getActivity(Integer activityId) {
         return activityRepository.getReferenceById(activityId);
-    }
-
-    private List<Activity> getActivitiesBy(Integer dayId) {
-        return activityRepository.findActivitiesBy(dayId);
     }
 
     private void getAndDeleteActivity(Integer activityId) {

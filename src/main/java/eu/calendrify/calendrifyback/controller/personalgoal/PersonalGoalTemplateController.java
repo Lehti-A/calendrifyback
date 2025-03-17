@@ -15,8 +15,6 @@ public class PersonalGoalTemplateController {
 
     private final PersonalGoalTemplateService personalGoalTemplateService;
 
-//todo    Küsida, kas peab olema veel path juures, kuna user profiili muutmisel on sama path.
-
     @PostMapping("/settings-personal-goal")
     @Operation(summary = "Lisab uue PersonalGoalTemplate-i välja")
     public void addNewPersonalGoalTemplate(@RequestBody NewPersonalGoalTemplate newPersonalGoalTemplate, @RequestParam Integer userId) {
@@ -34,6 +32,5 @@ public class PersonalGoalTemplateController {
     public void deletePersonalGoalTemplate(Integer personalGoalTemplateId) {
         personalGoalTemplateService.deletePersonalGoalTemplate(personalGoalTemplateId);
     }
-
 
 }

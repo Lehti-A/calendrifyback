@@ -31,7 +31,6 @@ public class PersonalGoalTemplateService {
         return personalGoalTemplateMapper.toPersonalGoalTemplateInfos(personalGoalTemplates);
     }
 
-
     public void deletePersonalGoalTemplate(Integer personalGoalTemplateId) {
         PersonalGoalTemplate personalGoalTemplate = personalGoalTemplateRepository.getReferenceById(personalGoalTemplateId);
         personalGoalTemplateRepository.delete(personalGoalTemplate);
@@ -45,6 +44,4 @@ public class PersonalGoalTemplateService {
         return personalGoalTemplate;
 
     }
-
-
 }

@@ -38,14 +38,14 @@ import static eu.calendrify.calendrifyback.infrastructure.Error.FOREIGN_KEY_NOT_
 public class DayService {
 
     private final UserRepository userRepository;
+    private final StepRepository stepRepository;
     private final DayRepository dayRepository;
-    private final DayMapper dayMapper;
     private final MoodRepository moodRepository;
     private final WaterRepository waterRepository;
     private final PersonalGoalRepository personalGoalRepository;
     private final PersonalGoalTemplateRepository personalGoalTemplateRepository;
+    private final DayMapper dayMapper;
     private final WaterMapper waterMapper;
-    private final StepRepository stepRepository;
     private final StepMapper stepMapper;
 
 
@@ -63,7 +63,6 @@ public class DayService {
         mood.setState(MoodState.UNSELECTED.getCode());
         moodRepository.save(mood);
 
-
         boolean waterExists = waterRepository.waterExistsBy(newDay.getUserId(), newDay.getDate());
         if (!waterExists) {
             Water water = waterMapper.toWater(newDay);
@@ -77,8 +76,6 @@ public class DayService {
             step.setUser(user);
             stepRepository.save(step);
         }
-
-        // todo: teha see kui on useri alt tehtud goalide asi.
 
         if (Type.PERSONAL.getCode().equals(newDay.getType())) {
             List<PersonalGoalTemplate> personalGoalTemplates = personalGoalTemplateRepository.findPersonalGoalTemplatesBy(user.getId());
@@ -95,7 +92,6 @@ public class DayService {
         return dayMapper.toDayInfo(day);
     }
 
-
     private Day createAndSaveDay(NewDay newDay) {
         Day day = createDay(newDay);
         dayRepository.save(day);
@@ -108,7 +104,6 @@ public class DayService {
         day.setUser(user);
         return day;
     }
-
 
     public DayInfo findDayInfo(Integer dayId) {
         Day day = getDayById(dayId);
@@ -124,7 +119,6 @@ public class DayService {
         Day day = getDayByUpdateThoughtDayId(updateThoughtDay);
         updateAndSaveThought(day, updateThoughtDay.getThoughts());
     }
-
 
     private Day getDayById(Integer dayId) {
         return dayRepository.findById(dayId).orElseThrow(() -> new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode()));

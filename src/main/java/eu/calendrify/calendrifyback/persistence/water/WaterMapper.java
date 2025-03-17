@@ -16,6 +16,6 @@ public interface WaterMapper {
 
     @Mapping(source = "id", target = "waterId")
     @Mapping(source = "count", target = "count")
-    WaterInfo toWaterinfo (Water water);
+    WaterInfo toWaterinfo(Water water);
 
 }

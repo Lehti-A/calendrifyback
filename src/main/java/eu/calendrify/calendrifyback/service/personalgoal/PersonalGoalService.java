@@ -22,19 +22,18 @@ public class PersonalGoalService {
     private final PersonalGoalMapper personalGoalMapper;
     private final DayRepository dayRepository;
 
-    public List<PersonalGoalInfo> findPersonalGoalInfos(Integer dayId) {
-        List<PersonalGoal> personalGoals = personalGoalRepository.findPersonalGoalsBy(dayId);
-        return personalGoalMapper.toPersonalGoalInfos(personalGoals);
-    }
 
     public void addPersonalGoal(NewPersonalGoal newPersonalGoal, Integer dayId) {
         Day day = dayRepository.findById(dayId).orElseThrow(() ->
                 new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode()));
-
         PersonalGoal personalGoal = personalGoalMapper.toPersonalGoal(newPersonalGoal);
         personalGoal.setDay(day);
-
         personalGoalRepository.save(personalGoal);
+    }
+
+    public List<PersonalGoalInfo> findPersonalGoalInfos(Integer dayId) {
+        List<PersonalGoal> personalGoals = personalGoalRepository.findPersonalGoalsBy(dayId);
+        return personalGoalMapper.toPersonalGoalInfos(personalGoals);
     }
 
     public void updatePersonalGoalStatus(Integer personalGoalId, Boolean isDone) {
@@ -48,12 +47,5 @@ public class PersonalGoalService {
         PersonalGoal personalGoal = personalGoalRepository.findById(personalGoalId).orElseThrow(() ->
                 new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode()));
         personalGoalRepository.delete(personalGoal);
-    }
-
-    public void updatePersonalGoalTopic(Integer personalGoalId, String topic) {
-        PersonalGoal personalGoal = personalGoalRepository.findById(personalGoalId).orElseThrow(() ->
-                new DataNotFoundException(FOREIGN_KEY_NOT_FOUND.getMessage(), FOREIGN_KEY_NOT_FOUND.getErrorCode()));
-        personalGoal.setTopic(topic);
-        personalGoalRepository.save(personalGoal);
     }
 }

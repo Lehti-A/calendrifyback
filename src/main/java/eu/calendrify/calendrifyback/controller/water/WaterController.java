@@ -1,6 +1,5 @@
 package eu.calendrify.calendrifyback.controller.water;
 
-import eu.calendrify.calendrifyback.controller.step.dto.StepInfo;
 import eu.calendrify.calendrifyback.controller.water.dto.WaterInfo;
 import eu.calendrify.calendrifyback.service.water.WaterService;
 import io.swagger.v3.oas.annotations.Operation;

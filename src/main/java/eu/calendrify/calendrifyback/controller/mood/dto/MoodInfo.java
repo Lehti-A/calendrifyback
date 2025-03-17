@@ -23,7 +23,4 @@ public class MoodInfo implements Serializable {
     @Size(max = 1)
     private String state;
 
-    public MoodInfo(String state) {
-        this.state = state;
-    }
 }

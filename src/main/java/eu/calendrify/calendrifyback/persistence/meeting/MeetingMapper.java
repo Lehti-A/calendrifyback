@@ -18,7 +18,6 @@ public interface MeetingMapper {
 
     List<MeetingInfo> toMeetingInfos(List<Meeting> meetings);
 
-
     @Mapping(source = "time", target = "time", qualifiedByName = "toLocalTime")
     @Mapping(source = "subject", target = "subject")
     Meeting toMeeting(NewMeeting newMeeting);

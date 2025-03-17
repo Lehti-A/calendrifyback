@@ -12,5 +12,4 @@ public enum MoodState {
     HAPPY("H");
 
     private final String code;
-
 }

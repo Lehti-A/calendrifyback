@@ -20,5 +20,4 @@ public class ValidationService {
         return new EmailAlreadyExistsException(INCORRECT_EMAIL.getMessage() + fieldName + " = " + value, INCORRECT_EMAIL.getErrorCode());
     }
 
-
 }
